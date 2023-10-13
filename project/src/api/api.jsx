@@ -3,6 +3,13 @@ import axios from 'axios';
 const key = '505148347d18c10aeac2faa958dbbf5c';
 const movieUrl = `https://api.themoviedb.org/3`;
 
+export async function getTrendingMovies() {
+  const response = await axios.get(
+    `${movieUrl}/trending/movie/week?api_key=${key}&page=1&language=ko-KR`
+  );
+  return response.data.results;
+}
+
 export async function getPopularMovies() {
   const response = await axios.get(
     `${movieUrl}/movie/popular?api_key=${key}&page=2&language=ko-KR`
@@ -22,6 +29,14 @@ export async function getTopRatedMovies() {
 export async function getUpcomingMovies() {
   const response = await axios.get(
     `${movieUrl}/movie/upcoming?api_key=${key}&page=1&language=ko-KR`
+  );
+
+  return response.data.results;
+}
+
+export async function getAiringDramas() {
+  const response = await axios.get(
+    `${movieUrl}/tv/airing_today?api_key=${key}&page=1&language=ko-KR`
   );
 
   return response.data.results;

@@ -1,9 +1,13 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { getPopularMovies, getTopRatedMovies, getUpcomingMovies } from '../api/api';
-import { makeImagePath } from '../utils/utils';
-import BigCover from '../components/BigCover';
+import {
+  getPopularMovies,
+  getTopRatedMovies,
+  getTrendingMovies,
+  getUpcomingMovies,
+} from '../api/api';
+import BigSlider from '../components/BigSlider';
 import Slider from '../components/Slider';
 
 const Wrapper = styled.div`
@@ -12,6 +16,7 @@ const Wrapper = styled.div`
 
 const Movies = () => {
   const { data: popularMovies, isLoading } = useQuery(['getMovies'], getPopularMovies);
+  const { data: trendingMovies } = useQuery(['getTreding'], getTrendingMovies);
   const { data: top_ratedMovies } = useQuery(['top_rated'], getTopRatedMovies);
   const { data: upcomingMovies } = useQuery(['upcomming'], getUpcomingMovies);
 
@@ -21,11 +26,7 @@ const Movies = () => {
         <h1>Loading...</h1>
       ) : (
         <div>
-          <BigCover
-            src={makeImagePath(popularMovies[0].backdrop_path)}
-            title={popularMovies[0].title}
-            details={popularMovies[0].overview.slice(0, 100)}
-          />
+          <BigSlider datas={trendingMovies} />
 
           <Slider title={'인기있는 영화'} datas={popularMovies} />
           <Slider title={'오늘 뭐 볼까?'} datas={top_ratedMovies} />
