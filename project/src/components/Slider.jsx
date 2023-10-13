@@ -59,7 +59,7 @@ const SliderItem = styled.div`
   background-position: center center;
 `;
 
-const sliderVariants = {
+export const sliderVariants = {
   hidden: (custom) => ({
     x: custom ? window.outerWidth : -window.outerWidth,
   }),
