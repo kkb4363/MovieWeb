@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled from 'styled-components';
-import { makeImagePath } from '../utils/utils';
+import { makeImagePath } from '../../utils/utils';
+import UseSlider from '../../hooks/UseSlider';
+import { sliderVariants } from './slider_global';
+
+const slider_transition = {
+  type: 'tween',
+  duration: 0.5,
+};
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -59,48 +66,24 @@ const SliderItem = styled.div`
   background-position: center center;
 `;
 
-export const sliderVariants = {
-  hidden: (custom) => ({
-    x: custom ? window.outerWidth : -window.outerWidth,
-  }),
-  visible: {
-    x: 0,
-  },
-  exit: (custom) => ({
-    x: custom ? -window.outerWidth : window.outerWidth,
-  }),
-};
-
 const Slider = ({ title, datas }) => {
   const offset = 6;
-
-  const [prev, setPrev] = useState(false);
-  const [index, setIndex] = useState(0);
   const lastIndex = datas && datas?.slice(2).length / offset - 1;
-
-  const onPrev = () => {
-    setIndex((prev) => (prev == 0 ? 0 : prev - 1));
-    setPrev(false);
-  };
-
-  const onNext = () => {
-    setIndex((prev) => (prev == lastIndex ? lastIndex : prev + 1));
-    setPrev(true);
-  };
+  const { index, next, onPrev, onNext } = UseSlider({ lastIndex });
 
   return (
     <Wrapper>
       <h1 className="text-white">{title}</h1>
 
-      <AnimatePresence custom={prev} initial={false}>
+      <AnimatePresence custom={next} initial={false}>
         <SliderItems
-          custom={prev}
+          custom={next}
           variants={sliderVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
           key={index}
-          transition={{ type: 'tween', duration: 0.5 }}
+          transition={slider_transition}
         >
           <button disabled={index === 0} onClick={onPrev}>
             <MdArrowBackIos />
