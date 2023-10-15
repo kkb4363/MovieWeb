@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { makeImagePath } from '../utils/utils';
+import { makeImagePath } from '../../utils/utils';
 import { AnimatePresence, motion } from 'framer-motion';
-import { sliderVariants } from './Slider';
+import UseSlider from '../../hooks/UseSlider';
+import { sliderVariants } from './slider_global';
+
+// Slider.jsx에 중복된 코드가 있지만 이렇게 둔 이유는 각 각 transition이 다를 수도 있기 때문
+const slider_transition = {
+  type: 'tween',
+  duration: 0.5,
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -95,20 +102,10 @@ const ImgInfo = styled.div`
 
 const BigSlider = ({ datas }) => {
   const offset = 1;
-  const [index, setIndex] = useState(0);
-  const [next, setPrev] = useState(true);
   const lastIndex = datas?.length - 1;
+  const { index, next, onPrev, onNext } = UseSlider({ lastIndex });
 
-  const onPrev = async () => {
-    await setPrev(false);
-    setIndex((prev) => (prev === 0 ? 0 : prev - 1));
-  };
-
-  const onNext = async () => {
-    await setPrev(true);
-    setIndex((prev) => (prev == lastIndex ? lastIndex : prev + 1));
-  };
-
+  // 다른곳에서도 필요할 시 customHook으로 만들자!
   const validateTitleLength = (title) => {
     if (title.length > 20) return title.slice(0, 20) + '...';
     else return title;
@@ -124,7 +121,7 @@ const BigSlider = ({ datas }) => {
           animate="visible"
           exit="exit"
           key={index}
-          transition={{ type: 'tween', duration: 0.5 }}
+          transition={slider_transition}
         >
           {datas?.slice(offset * index, offset * index + offset)?.map((item, idx) => (
             <div key={idx}>
