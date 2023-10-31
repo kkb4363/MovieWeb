@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import BigSlider from '../components/slider/BigSlider';
-import Slider from '../components/slider/Slider';
-import UseDramas from '../hooks/UseDramas';
+import BigSlider from '../../components/slider/BigSlider';
+import Slider from '../../components/slider/Slider';
+import UseDramas from '../../hooks/UseDramas';
 
 const Wrapper = styled.div`
   padding: var(--default-padding-style);
