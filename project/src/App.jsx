@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import Header from './header/Header';
-import './index.css';
 import styled from 'styled-components';
+import Header from './domains/header/Header';
+import './index.css';
 
 const Wrapper = styled.div`
   background-color: rgb(27 27 27);
@@ -16,7 +16,6 @@ const HeaderWrapper = styled.div`
 
 const OutletWrapper = styled.div`
   position: relative;
-
   box-sizing: border-box;
   padding-top: 5vh;
 `;

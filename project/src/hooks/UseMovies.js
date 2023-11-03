@@ -4,7 +4,7 @@ import {
   getTopRatedMovies,
   getTrendingMovies,
   getUpcomingMovies,
-} from '../api/api';
+} from '../api/apis';
 
 const UseMovies = () => {
   const { data: popularMovies, isLoading } = useQuery(['getMovies'], getPopularMovies);

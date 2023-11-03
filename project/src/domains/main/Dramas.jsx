@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import BigSlider from '../../components/slider/BigSlider';
 import Slider from '../../components/slider/Slider';

@@ -4,7 +4,7 @@ import {
   getOntheAirDramas,
   getPopularDramas,
   getTopRatedDramas,
-} from '../api/api';
+} from '../api/apis';
 
 const UseDramas = () => {
   const { data: popularDramas, isLoading } = useQuery(['popular'], getPopularDramas);
