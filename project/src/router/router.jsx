@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import Movies from '../main/Movies';
-import Dramas from '../main/Dramas';
+import Dramas from '../domains/main/Dramas';
+import Movies from '../domains/main/Movies';
 
 const router = createBrowserRouter([
   {

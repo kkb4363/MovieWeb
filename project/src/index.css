@@ -4,4 +4,7 @@
 
 :root {
   --default-padding-style: 0 10vw;
+  --default-padding-style-oneside: 10vw;
+
+  --chat-border-style: 20px;
 }

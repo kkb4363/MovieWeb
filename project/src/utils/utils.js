@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const key = '505148347d18c10aeac2faa958dbbf5c';
 const movieUrl = `https://api.themoviedb.org/3`;
 

@@ -103,6 +103,9 @@ body {
   line-height: 1;
   background-color: rgb(27 27 27);
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 ol,
 ul {
   list-style: none;
