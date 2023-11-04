@@ -53,7 +53,8 @@ const ChatRoomBtn = styled.button`
   color: white;
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: -12vh;
+  margin-top: auto;
+  margin-bottom: 5%;
 
   div {
     display: flex;

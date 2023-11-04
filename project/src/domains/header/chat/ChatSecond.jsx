@@ -6,6 +6,7 @@ import ChatHeader, { HeaderIcon } from '../../../components/chat/ChatHeader';
 import ChatMessage from '../../../components/chat/ChatMessage';
 import { useRef, useState } from 'react';
 import { BsEmojiSmile } from 'react-icons/bs';
+import { getTime } from '../../../utils/utils';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -203,6 +204,8 @@ const ChatSecond = (props) => {
     handleEmoji();
   };
 
+  const { currentTime_00_00 } = getTime();
+
   return (
     <Wrapper>
       {emojiopen && <Overlay onClick={handleEmoji} />}
@@ -230,7 +233,7 @@ const ChatSecond = (props) => {
         </AdminInfo>
 
         <Chat>
-          <span>오후 2:14</span>
+          <span>{currentTime_00_00}</span>
           <Chatbot>
             <HeaderIcon $size="35px" $fontsize="10px">
               GMWeb

@@ -5,6 +5,7 @@ import { makeImagePath } from '../../utils/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import UseSlider from '../../hooks/UseSlider';
 import { sliderVariants } from './slider_global';
+import { useNavigate } from 'react-router-dom';
 
 // Slider.jsx에 중복된 코드가 있지만 이렇게 둔 이유는 각 각 transition이 다를 수도 있기 때문
 const slider_transition = {
@@ -37,7 +38,7 @@ const Prev = styled.button`
   top: 0;
   bottom: 0;
   left: 0;
-  width: 30px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,7 +56,7 @@ const Next = styled.button`
   top: 0;
   bottom: 0;
   right: 0;
-  width: 30px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,8 +87,8 @@ const ImgInfo = styled.div`
   }
 
   button {
-    min-width: 90px;
-    height: 25px;
+    min-width: 100px;
+    height: 30px;
 
     display: flex;
     align-items: center;
@@ -95,7 +96,7 @@ const ImgInfo = styled.div`
 
     border-radius: 10px;
     &:hover {
-      background-color: gray;
+      background-color: rgb(0, 0, 0, 0.3);
     }
   }
 `;
@@ -109,6 +110,12 @@ const BigSlider = ({ datas }) => {
   const validateTitleLength = (title) => {
     if (title.length > 20) return title.slice(0, 20) + '...';
     else return title;
+  };
+
+  const navigate = useNavigate();
+
+  const gotoDetails = (id) => {
+    navigate(`${id}`);
   };
 
   return (
@@ -130,7 +137,7 @@ const BigSlider = ({ datas }) => {
               <ImgInfo className="text-white">
                 <h1>{validateTitleLength(item.title || item.name)}</h1>
                 <span>{item.overview.slice(0, 100)}...</span>
-                <button>자세히 보기</button>
+                <button onClick={() => gotoDetails(item.id)}>자세히 보기</button>
               </ImgInfo>
             </div>
           ))}
