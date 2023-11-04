@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { makeImagePath } from '../../utils/utils';
 import UseSlider from '../../hooks/UseSlider';
 import { sliderVariants } from './slider_global';
+import { useNavigate } from 'react-router-dom';
 
 const slider_transition = {
   type: 'tween',
@@ -33,7 +34,7 @@ const SliderItems = styled(motion.div)`
   position: absolute;
   button {
     &:hover {
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgb(0, 0, 0, 0.3);
     }
     width: 50px;
     height: 50px;
@@ -49,6 +50,7 @@ const SliderItems = styled(motion.div)`
   }
   button:first-child {
     left: 0;
+    z-index: 2;
   }
   button:last-child {
     right: 0;
@@ -59,6 +61,10 @@ const SliderItem = styled.div`
   display: flex;
   flex-direction: column;
 
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
   height: 330px;
 
   background-image: url(${(props) => props.bgsrc && props.bgsrc});
@@ -70,6 +76,8 @@ const Slider = ({ title, datas }) => {
   const offset = 6;
   const lastIndex = datas && datas?.slice(2).length / offset - 1;
   const { index, next, onPrev, onNext } = UseSlider({ lastIndex });
+
+  const navigate = useNavigate();
 
   return (
     <Wrapper>
@@ -93,7 +101,11 @@ const Slider = ({ title, datas }) => {
             ?.slice(2)
             ?.slice(offset * index, offset * index + offset)
             .map((data) => (
-              <SliderItem key={data.id} bgsrc={makeImagePath(data.poster_path, 'w200')} />
+              <SliderItem
+                onClick={() => navigate(`${data.id}`)}
+                key={data.id}
+                bgsrc={makeImagePath(data.poster_path, 'w200')}
+              />
             ))}
 
           <button disabled={index === lastIndex} onClick={onNext}>

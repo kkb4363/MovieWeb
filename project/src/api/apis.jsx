@@ -1,4 +1,4 @@
-import { getAxios } from '../utils/utils';
+import { getAxios, getDetailsWithAxios, getVideosWithAxios } from '../utils/utils';
 
 // movie
 export async function getTrendingMovies() {
@@ -39,5 +39,17 @@ export async function getTopRatedDramas() {
 
 export async function getOntheAirDramas() {
   const data = getAxios('/tv/on_the_air');
+  return data;
+}
+
+// get details
+export async function getDetails(series, id) {
+  const data = getDetailsWithAxios(`/${series}/${id}`);
+  return data;
+}
+
+// get videos
+export async function getVideos(series, id) {
+  const data = getVideosWithAxios(`/${series}/${id}`);
   return data;
 }
