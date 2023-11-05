@@ -26,6 +26,13 @@ const Wrapper = styled.div`
 
 const ImgWrapper = styled(motion.div)`
   position: absolute;
+
+  width: 80%;
+  height: 90%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Prev = styled.button`
@@ -77,7 +84,7 @@ const ImgInfo = styled.div`
   bottom: 10%;
 
   h1 {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 600;
     white-space: nowrap;
   }
@@ -132,7 +139,7 @@ const BigSlider = ({ datas }) => {
         >
           {datas?.slice(offset * index, offset * index + offset)?.map((item, idx) => (
             <div key={idx}>
-              <img src={makeImagePath(item.backdrop_path)} />
+              <img src={makeImagePath(item.backdrop_path, 'w1280')} />
 
               <ImgInfo className="text-white">
                 <h1>{validateTitleLength(item.title || item.name)}</h1>
