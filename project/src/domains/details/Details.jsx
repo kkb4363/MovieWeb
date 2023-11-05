@@ -74,6 +74,11 @@ const Right = styled.div`
   width: 20%;
   height: 100%;
   overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const SammaryWrapper = styled.div`

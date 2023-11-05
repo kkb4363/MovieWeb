@@ -65,10 +65,10 @@ const SliderItem = styled.div`
     opacity: 0.7;
     cursor: pointer;
   }
-  height: 330px;
+  height: 311px;
 
   background-image: url(${(props) => props.bgsrc && props.bgsrc});
-  background-size: contain;
+  background-size: cover;
   background-position: center center;
 `;
 
@@ -104,7 +104,7 @@ const Slider = ({ title, datas }) => {
               <SliderItem
                 onClick={() => navigate(`${data.id}`)}
                 key={data.id}
-                bgsrc={makeImagePath(data.poster_path, 'w200')}
+                bgsrc={makeImagePath(data.poster_path, 'w780')}
               />
             ))}
 
