@@ -1,4 +1,9 @@
-import { getAxios, getDetailsWithAxios, getVideosWithAxios } from '../utils/utils';
+import {
+  getAxios,
+  getAxiosDefault,
+  getDetailsWithAxios,
+  getVideosWithAxios,
+} from '../utils/utils';
 
 // movie
 export async function getTrendingMovies() {
@@ -51,5 +56,11 @@ export async function getDetails(series, id) {
 // get videos
 export async function getVideos(series, id) {
   const data = getVideosWithAxios(`/${series}/${id}`);
+  return data;
+}
+
+// popular top-10
+export async function getPopular() {
+  const data = getAxiosDefault(`/trending/all/day`);
   return data;
 }

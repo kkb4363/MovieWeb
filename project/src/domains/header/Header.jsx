@@ -1,25 +1,39 @@
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import ContactDialog from './ContactDialog';
+import ContactDialog from './contact/ContactDialog';
 import { useEffect, useState } from 'react';
+import SearchDialog from './search/SearchDialog';
+import SearchIcon from './search/SearchIcon';
 
 const header_height = '5vh';
 
 const Wrapper = styled.div`
   height: ${header_height};
-
+  color: lightgray;
   padding: var(--default-padding-style);
   background-color: rgb(45 45 45);
 `;
 
 const CategoriesWrapper = styled.div`
-  width: 30%;
+  width: 20%;
   white-space: nowrap;
 
   a:first-child {
     font-size: 20px;
     font-weight: 500;
   }
+
+  a {
+    &:hover {
+      color: white;
+    }
+  }
+`;
+
+const ContactWithSearch = styled.div`
+  display: flex;
+  width: 10%;
+  align-items: center;
 `;
 
 const Contact = styled.button`
@@ -27,7 +41,7 @@ const Contact = styled.button`
   height: ${header_height};
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
   }
 
   position: fixed;
@@ -36,7 +50,7 @@ const Contact = styled.button`
 
 const categories = [
   {
-    name: "Gibeom's Movie Web",
+    name: 'GMWeb',
     src: '/',
   },
   {
@@ -60,10 +74,13 @@ const Header = () => {
     document.body.style.overflow = 'unset';
   };
 
+  const [openSearchDialog, setOpenSearchDialog] = useState(false);
+  const handleSearchDialog = () => setOpenSearchDialog((prev) => !prev);
+
   useEffect(() => {
-    if (openContactDialog) disableScroll();
+    if (openContactDialog || openSearchDialog) disableScroll();
     else enableScroll();
-  }, [openContactDialog]);
+  }, [openContactDialog, openSearchDialog]);
 
   return (
     <Wrapper className="w-screen text-white items-center justify-between flex box-border">
@@ -75,8 +92,12 @@ const Header = () => {
         ))}
       </CategoriesWrapper>
 
-      <Contact onClick={handleContactDialog}>Contact</Contact>
+      <ContactWithSearch>
+        <SearchIcon onClick={handleSearchDialog} />
+        <Contact onClick={handleContactDialog}>Contact</Contact>
+      </ContactWithSearch>
 
+      {openSearchDialog && <SearchDialog onClick={handleSearchDialog} />}
       {openContactDialog && <ContactDialog onClick={handleContactDialog} />}
     </Wrapper>
   );

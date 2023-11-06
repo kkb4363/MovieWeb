@@ -5,7 +5,8 @@ import { HiOutlineMailOpen } from 'react-icons/hi';
 import { BiX } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import ChatDialog from './chat/ChatDialog';
+import ChatDialog from './ChatDialog';
+import Overlay from '../../../components/common/Overlay';
 
 const contactdialogVariable = {
   hidden: {
@@ -33,7 +34,7 @@ const Wrapper = styled(motion.div)`
 
   width: 20%;
   height: 100vh;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const Name = styled.div`
@@ -100,19 +101,6 @@ const ChatIcon = styled.div`
   }
 `;
 
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: 0 auto;
-
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
-`;
-
 const Snsdata = [
   {
     icon: <BsGithub />,
@@ -162,7 +150,7 @@ const ContactDialog = (props) => {
         {chatOpen && <ChatDialog isOpen={chatOpen} />}
       </Wrapper>
 
-      <Overlay onClick={props.onClick} />
+      <Overlay zIndex={'1'} onClick={props.onClick} />
     </>
   );
 };

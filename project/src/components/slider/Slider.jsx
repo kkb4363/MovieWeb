@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const slider_transition = {
   type: 'tween',
-  duration: 0.5,
+  duration: 0.2,
 };
 
 const Wrapper = styled.div`
