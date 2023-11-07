@@ -3,6 +3,8 @@ import { useQuery } from 'react-query';
 import { getPopular } from '../../../../../api/apis';
 import { useNavigate } from 'react-router-dom';
 import { getTime } from '../../../../../utils/utils';
+import { useSetRecoilState } from 'recoil';
+import { openSearchDialogAtom } from '../../../../../atom/header_atom';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,6 +42,9 @@ const Footer = styled.div`
 `;
 
 const PopularLists = () => {
+  const setSearchDialog = useSetRecoilState(openSearchDialogAtom);
+  const closeSearchDialog = () => setSearchDialog(false);
+
   const { data, isLoading } = useQuery(['get_popular'], () => getPopular());
   const navigate = useNavigate();
   const { currentDate_YEAR_MM_DD } = getTime();
@@ -51,6 +56,7 @@ const PopularLists = () => {
           const goTodetails = () => {
             const id = isMovie ? `${item?.id}` : `/drama/${item?.id}`;
             navigate(`${id}`);
+            closeSearchDialog();
           };
 
           return (

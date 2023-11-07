@@ -2,6 +2,7 @@ import {
   getAxios,
   getAxiosDefault,
   getDetailsWithAxios,
+  getSearchAxios,
   getVideosWithAxios,
 } from '../utils/utils';
 
@@ -62,5 +63,10 @@ export async function getVideos(series, id) {
 // popular top-10
 export async function getPopular() {
   const data = getAxiosDefault(`/trending/all/day`);
+  return data;
+}
+
+export async function getSearch(query) {
+  const data = getSearchAxios(`/search/multi?query=${query}`);
   return data;
 }

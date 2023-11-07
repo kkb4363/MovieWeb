@@ -7,6 +7,15 @@ export function makeImagePath(id, size) {
   return `https://image.tmdb.org/t/p/${size ? size : 'original'}${id}`;
 }
 
+export async function getSearchAxios(src) {
+  try {
+    const res = await axios.get(`${movieUrl}${src}&api_key=${key}&language=ko-KR`);
+    return res;
+  } catch (err) {
+    console.log('get Search Error=', err);
+  }
+}
+
 export async function getAxiosDefault(src) {
   try {
     const res = await axios.get(`${movieUrl}${src}?api_key=${key}&language=ko-KR`);

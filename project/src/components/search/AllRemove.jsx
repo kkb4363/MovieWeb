@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 const AllRemove = (props) => {
   return (
-    <Wrapper>
+    <Wrapper onClick={props.onClick}>
       <span>{props.text}</span>
       <div>
         <BsXCircleFill />

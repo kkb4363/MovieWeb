@@ -3,6 +3,7 @@ import App from '../App';
 import Dramas from '../domains/main/Dramas';
 import Movies from '../domains/main/Movies';
 import Details from '../domains/details/Details';
+import Search from '../domains/header/search/Search';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: '/drama/:dramaId',
         element: <Details />,
+      },
+      {
+        path: '/search',
+        element: <Search />,
+      },
+      {
+        path: '/search/:searchId',
+        element: <Search />,
       },
     ],
   },

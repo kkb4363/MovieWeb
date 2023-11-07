@@ -39,7 +39,9 @@ const WordsContainer = (props) => {
     <Wrapper $isRightBorder={props.isRightBorder} $paddingSize={props.paddingSize}>
       <Header>
         <h1>{props.text}</h1>
-        {props.isRemoveBtn && <AllRemove text={'모두 지우기'} />}
+        {props.isRemoveBtn && (
+          <AllRemove onClick={props.onDeleteAll} text={'모두 지우기'} />
+        )}
       </Header>
 
       {props.children}

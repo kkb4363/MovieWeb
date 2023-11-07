@@ -2,8 +2,10 @@ import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 import ContactDialog from './contact/ContactDialog';
 import { useEffect, useState } from 'react';
-import SearchDialog from './search/SearchDialog';
-import SearchIcon from './search/SearchIcon';
+import SearchDialog from '../../components/search/SearchDialog';
+import SearchIcon from '../../components/search/SearchIcon';
+import { useRecoilState } from 'recoil';
+import { openSearchDialogAtom } from '../../atom/header_atom';
 
 const header_height = '5vh';
 
@@ -64,6 +66,7 @@ const categories = [
 ];
 
 const Header = () => {
+  const [openSearchDialog, setOpenSearchDialog] = useRecoilState(openSearchDialogAtom);
   const [openContactDialog, setOpenContactDialog] = useState(false);
   const handleContactDialog = () => setOpenContactDialog((prev) => !prev);
 
@@ -74,9 +77,6 @@ const Header = () => {
     document.body.style.overflow = 'unset';
   };
 
-  const [openSearchDialog, setOpenSearchDialog] = useState(false);
-  const handleSearchDialog = () => setOpenSearchDialog((prev) => !prev);
-
   useEffect(() => {
     if (openContactDialog || openSearchDialog) disableScroll();
     else enableScroll();
@@ -86,18 +86,18 @@ const Header = () => {
     <Wrapper className="w-screen text-white items-center justify-between flex box-border">
       <CategoriesWrapper className="h-full flex justify-between items-center">
         {categories.map((a) => (
-          <Link key={a.name} to={a.src}>
+          <Link key={a.name} to={a.src} onClick={() => setOpenSearchDialog(false)}>
             <span>{a.name}</span>
           </Link>
         ))}
       </CategoriesWrapper>
 
       <ContactWithSearch>
-        <SearchIcon onClick={handleSearchDialog} />
+        <SearchIcon />
         <Contact onClick={handleContactDialog}>Contact</Contact>
       </ContactWithSearch>
 
-      {openSearchDialog && <SearchDialog onClick={handleSearchDialog} />}
+      {openSearchDialog && <SearchDialog />}
       {openContactDialog && <ContactDialog onClick={handleContactDialog} />}
     </Wrapper>
   );
