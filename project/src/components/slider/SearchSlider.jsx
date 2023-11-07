@@ -1,10 +1,10 @@
+import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { makeImagePath } from '../../utils/utils';
 import UseSlider from '../../hooks/UseSlider';
 import { sliderVariants } from './slider_global';
-import { useNavigate } from 'react-router-dom';
 
 const slider_transition = {
   type: 'tween',
@@ -59,6 +59,9 @@ const SliderItems = styled(motion.div)`
 const SliderItem = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
 
   &:hover {
     opacity: 0.7;
@@ -70,14 +73,12 @@ const SliderItem = styled.div`
   background-size: cover;
   background-position: center center;
 `;
-
-const Slider = ({ title, datas }) => {
+const SearchSlider = ({ title, datas }) => {
   const offset = 6;
-  const lastIndex = datas && datas?.slice(2).length / offset - 1;
+  const lastIndex =
+    datas && datas?.length < 7 ? 0 : Math.floor(datas?.length / offset) - 1;
   const { index, next, onPrev, onNext } = UseSlider({ lastIndex });
-
   const navigate = useNavigate();
-
   return (
     <Wrapper>
       <h1 className="text-white">{title}</h1>
@@ -96,16 +97,19 @@ const Slider = ({ title, datas }) => {
             <MdArrowBackIos />
           </button>
 
-          {datas
-            ?.slice(2)
-            ?.slice(offset * index, offset * index + offset)
-            .map((data) => (
+          {datas?.slice(offset * index, offset * index + offset).map((data) => {
+            const isMovie = data.media_type == 'movie';
+            const srcToNavigate = isMovie ? `/${data.id}` : `/drama/${data.id}`;
+            return (
               <SliderItem
-                onClick={() => navigate(`${data.id}`)}
+                onClick={() => navigate(`${srcToNavigate}`)}
                 key={data.id}
-                bgsrc={makeImagePath(data.poster_path, 'w780')}
-              />
-            ))}
+                bgsrc={data.poster_path ? makeImagePath(data.poster_path, 'w780') : null}
+              >
+                {!data.poster_path && '이미지 지원 안함'}
+              </SliderItem>
+            );
+          })}
 
           <button disabled={index === lastIndex} onClick={onNext}>
             <MdArrowForwardIos />
@@ -116,4 +120,4 @@ const Slider = ({ title, datas }) => {
   );
 };
 
-export default Slider;
+export default SearchSlider;

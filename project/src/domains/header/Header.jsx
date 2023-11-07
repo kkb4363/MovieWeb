@@ -1,25 +1,41 @@
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import ContactDialog from './ContactDialog';
+import ContactDialog from './contact/ContactDialog';
 import { useEffect, useState } from 'react';
+import SearchDialog from '../../components/search/SearchDialog';
+import SearchIcon from '../../components/search/SearchIcon';
+import { useRecoilState } from 'recoil';
+import { openSearchDialogAtom } from '../../atom/header_atom';
 
 const header_height = '5vh';
 
 const Wrapper = styled.div`
   height: ${header_height};
-
+  color: lightgray;
   padding: var(--default-padding-style);
   background-color: rgb(45 45 45);
 `;
 
 const CategoriesWrapper = styled.div`
-  width: 30%;
+  width: 20%;
   white-space: nowrap;
 
   a:first-child {
     font-size: 20px;
     font-weight: 500;
   }
+
+  a {
+    &:hover {
+      color: white;
+    }
+  }
+`;
+
+const ContactWithSearch = styled.div`
+  display: flex;
+  width: 10%;
+  align-items: center;
 `;
 
 const Contact = styled.button`
@@ -27,7 +43,7 @@ const Contact = styled.button`
   height: ${header_height};
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
   }
 
   position: fixed;
@@ -36,7 +52,7 @@ const Contact = styled.button`
 
 const categories = [
   {
-    name: "Gibeom's Movie Web",
+    name: 'GMWeb',
     src: '/',
   },
   {
@@ -50,6 +66,7 @@ const categories = [
 ];
 
 const Header = () => {
+  const [openSearchDialog, setOpenSearchDialog] = useRecoilState(openSearchDialogAtom);
   const [openContactDialog, setOpenContactDialog] = useState(false);
   const handleContactDialog = () => setOpenContactDialog((prev) => !prev);
 
@@ -61,22 +78,26 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (openContactDialog) disableScroll();
+    if (openContactDialog || openSearchDialog) disableScroll();
     else enableScroll();
-  }, [openContactDialog]);
+  }, [openContactDialog, openSearchDialog]);
 
   return (
     <Wrapper className="w-screen text-white items-center justify-between flex box-border">
       <CategoriesWrapper className="h-full flex justify-between items-center">
         {categories.map((a) => (
-          <Link key={a.name} to={a.src}>
+          <Link key={a.name} to={a.src} onClick={() => setOpenSearchDialog(false)}>
             <span>{a.name}</span>
           </Link>
         ))}
       </CategoriesWrapper>
 
-      <Contact onClick={handleContactDialog}>Contact</Contact>
+      <ContactWithSearch>
+        <SearchIcon />
+        <Contact onClick={handleContactDialog}>Contact</Contact>
+      </ContactWithSearch>
 
+      {openSearchDialog && <SearchDialog />}
       {openContactDialog && <ContactDialog onClick={handleContactDialog} />}
     </Wrapper>
   );

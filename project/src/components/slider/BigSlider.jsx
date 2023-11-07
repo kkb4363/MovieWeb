@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 // Slider.jsx에 중복된 코드가 있지만 이렇게 둔 이유는 각 각 transition이 다를 수도 있기 때문
 const slider_transition = {
   type: 'tween',
-  duration: 0.5,
+  duration: 0.2,
 };
 
 const Wrapper = styled.div`

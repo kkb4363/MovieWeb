@@ -1,7 +1,8 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './domains/header/Header';
 import './index.css';
+import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: rgb(27 27 27);
@@ -21,6 +22,12 @@ const OutletWrapper = styled.div`
 `;
 
 function App() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <Wrapper>
       <HeaderWrapper>

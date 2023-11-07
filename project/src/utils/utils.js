@@ -7,6 +7,24 @@ export function makeImagePath(id, size) {
   return `https://image.tmdb.org/t/p/${size ? size : 'original'}${id}`;
 }
 
+export async function getSearchAxios(src) {
+  try {
+    const res = await axios.get(`${movieUrl}${src}&api_key=${key}&language=ko-KR`);
+    return res;
+  } catch (err) {
+    console.log('get Search Error=', err);
+  }
+}
+
+export async function getAxiosDefault(src) {
+  try {
+    const res = await axios.get(`${movieUrl}${src}?api_key=${key}&language=ko-KR`);
+    return res.data;
+  } catch (err) {
+    console.log('api_default_error=', err);
+  }
+}
+
 export async function getAxios(src) {
   try {
     const res = await axios.get(`${movieUrl}${src}?api_key=${key}&page=1&language=ko-KR`);
@@ -38,11 +56,15 @@ export function getTime() {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
+  const year = now.getFullYear();
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, '0');
   let period;
 
   if (hours < 12) period = '오전';
   else period = '오후';
 
   const currentTime_00_00 = `${period} ${hours}:${minutes}`;
-  return { currentTime_00_00 };
+  const currentDate_YEAR_MM_DD = `${year}.${month}.${day}`;
+  return { currentTime_00_00, currentDate_YEAR_MM_DD };
 }
