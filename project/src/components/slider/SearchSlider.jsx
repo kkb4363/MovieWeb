@@ -49,7 +49,7 @@ const SliderItems = styled(motion.div)`
   }
   button:first-child {
     left: 0;
-    z-index: 2;
+    z-index: 1;
   }
   button:last-child {
     right: 0;
